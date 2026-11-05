@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 11 Statistics Revision & Assessment Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- MathJax for rendering TeX -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.5); border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-brand-600 text-white rounded-xl shadow-md">
+                        <i class="fa-solid fa-chart-column text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight">Statistics Hub</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Class 11 CBSE / NCERT Revision & Quiz</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs (Desktop) -->
+                <nav class="hidden md:flex space-x-1 bg-slate-100 dark:bg-slate-700/50 p-1 rounded-xl">
+                    <button onclick="switchTab('revision')" id="tab-revision" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-brand-600 dark:text-brand-400 bg-white dark:bg-slate-800 shadow-sm">
+                        <i class="fa-solid fa-book-open mr-2"></i>Formulas & Tools
+                    </button>
+                    <button onclick="switchTab('ncert')" id="tab-ncert" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-brand-600">
+                        <i class="fa-solid fa-square-check mr-2"></i>NCERT Solutions
+                    </button>
+                    <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-brand-600">
+                        <i class="fa-solid fa-pen-ruler mr-2"></i>Interactive Assessment
+                    </button>
+                    <button onclick="switchTab('analytics')" id="tab-analytics" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-brand-600">
+                        <i class="fa-solid fa-chart-line mr-2"></i>Analytics
+                    </button>
+                </nav>
+
+                <!-- Controls -->
+                <div class="flex items-center space-x-2">
+                    <button id="themeToggle" onclick="toggleDarkMode()" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-lg hidden dark:inline"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Row -->
+        <div class="flex md:hidden border-t border-slate-200 dark:border-slate-700 overflow-x-auto px-2 py-1.5 space-x-1 custom-scrollbar">
+            <button onclick="switchTab('revision')" id="tab-revision-m" class="mobile-nav-btn whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-lg bg-brand-600 text-white">
+                <i class="fa-solid fa-book-open mr-1"></i> Formulas & Tools
+            </button>
+            <button onclick="switchTab('ncert')" id="tab-ncert-m" class="mobile-nav-btn whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300">
+                <i class="fa-solid fa-square-check mr-1"></i> NCERT
+            </button>
+            <button onclick="switchTab('quiz')" id="tab-quiz-m" class="mobile-nav-btn whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300">
+                <i class="fa-solid fa-pen-ruler mr-1"></i> Assessment
+            </button>
+            <button onclick="switchTab('analytics')" id="tab-analytics-m" class="mobile-nav-btn whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300">
+                <i class="fa-solid fa-chart-line mr-1"></i> Analytics
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- SECTION 1: REVISION KEY POINTS & INTERACTIVE TOOLS -->
+        <section id="sec-revision" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-brand-600 to-teal-700 text-white rounded-2xl p-6 sm:p-8 shadow-lg relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold uppercase tracking-wider mb-3">Quick Revision</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Measures of Dispersion</h2>
+                    <p class="text-brand-100 text-sm sm:text-base mb-4">Master Mean Absolute Deviation, Variance, Standard Deviation, and Coefficient of Variation with interactive calculation tools and step-by-step solutions.</p>
+                </div>
+                <div class="absolute right-4 bottom-2 opacity-15 pointer-events-none text-9xl font-bold">
+                    $\sigma^2$
+                </div>
+            </div>
+
+            <!-- Grid Layout for Theory Cards and Interactive Tools -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Column 1 & 2: Theory Revision Cards -->
+                <div class="lg:col-span-2 space-y-6">
+
+                    <!-- Card 1: Central Tendency & Mean Absolute Deviation -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-lg"><i class="fa-solid fa-calculator"></i></span>
+                            <h3 class="text-lg font-bold">1. Mean Absolute Deviation (M.A.D.)</h3>
+                        </div>
+                        <div class="space-y-4 text-sm">
+                            <div class="p-4 bg-slate-50 dark:bg-slate-700/40 rounded-lg border border-slate-100 dark:border-slate-700">
+                                <h4 class="font-semibold text-brand-600 dark:text-brand-400 mb-1">M.A.D. for Ungrouped Data</h4>
+                                <p class="text-slate-600 dark:text-slate-300 text-xs mb-2">Absolute deviation about Mean ($\bar{x}$) or Median ($M$):</p>
+                                <p class="text-center py-1 font-semibold">
+                                    $$M.A.D.(\bar{x}) = \frac{\sum |x_i - \bar{x}|}{n}, \quad M.A.D.(M) = \frac{\sum |x_i - M|}{n}$$
+                                </p>
+                            </div>
+                            <div class="p-4 bg-slate-50 dark:bg-slate-700/40 rounded-lg border border-slate-100 dark:border-slate-700">
+                                <h4 class="font-semibold text-brand-600 dark:text-brand-400 mb-1">M.A.D. for Grouped / Frequency Distribution</h4>
+                                <p class="text-slate-600 dark:text-slate-300 text-xs mb-2">Discrete / Continuous Frequency Distribution ($N = \sum f_i$):</p>
+                                <p class="text-center py-1 font-semibold">
+                                    $$M.A.D.(\bar{x}) = \frac{\sum f_i |x_i - \bar{x}|}{N}, \quad M.A.D.(M) = \frac{\sum f_i |x_i - M|}{N}$$
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Variance & Standard Deviation -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg"><i class="fa-solid fa-chart-line"></i></span>
+                            <h3 class="text-lg font-bold">2. Variance ($\sigma^2$) & Standard Deviation ($\sigma$)</h3>
+                        </div>
+                        <div class="space-y-4 text-sm">
+                            <div class="p-4 bg-slate-50 dark:bg-slate-700/40 rounded-lg">
+                                <h4 class="font-semibold text-blue-600 dark:text-blue-400 mb-1">Direct Method (Continuous Series)</h4>
+                                <p class="text-center py-1 font-semibold">
+                                    $$\sigma^2 = \frac{\sum f_i (x_i - \bar{x})^2}{N} = \frac{\sum f_i x_i^2}{N} - \left(\frac{\sum f_i x_i}{N}\right)^2$$
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                                <div class="p-3 bg-blue-50 dark:bg-blue-950/30 text-blue-900 dark:text-blue-200 rounded-lg border border-blue-200 dark:border-blue-800">
+                                    <p class="font-bold mb-1">Short-cut Method ($d_i = x_i - A$)</p>
+                                    <p>$$\sigma^2 = \frac{\sum f_i d_i^2}{N} - \left(\frac{\sum f_i d_i}{N}\right)^2$$</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 dark:bg-blue-950/30 text-blue-900 dark:text-blue-200 rounded-lg border border-blue-200 dark:border-blue-800">
+                                    <p class="font-bold mb-1">Step-deviation ($y_i = \frac{x_i - A}{h}$)</p>
+                                    <p>$$\sigma^2 = \frac{h^2}{N^2} \left[ N \sum f_i y_i^2 - (\sum f_i y_i)^2 \right]$$</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Coefficient of Variation & Distribution Analysis -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-lg"><i class="fa-solid fa-scale-balanced"></i></span>
+                            <h3 class="text-lg font-bold">3. Coefficient of Variation (C.V.) & Comparison</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div class="p-4 bg-slate-50 dark:bg-slate-700/40 rounded-lg">
+                                <h4 class="font-semibold text-purple-600 dark:text-purple-400 mb-1">Formula for C.V.</h4>
+                                <p class="text-xs text-slate-500 mb-2">Used to compare variability or consistency of distributions:</p>
+                                <p class="text-center py-2 font-semibold">
+                                    $$C.V. = \frac{\sigma}{\bar{x}} \times 100 \quad (\bar{x} \neq 0)$$
+                                </p>
+                            </div>
+                            <div class="p-4 bg-slate-50 dark:bg-slate-700/40 rounded-lg text-xs leading-relaxed">
+                                <h4 class="font-semibold text-purple-600 dark:text-purple-400 mb-1">Key Principles</h4>
+                                <ul class="space-y-1 text-slate-600 dark:text-slate-300">
+                                    <li>• <strong>Higher C.V.:</strong> Greater variability / Less consistent / Less stable.</li>
+                                    <li>• <strong>Lower C.V.:</strong> Less variability / More consistent / More stable.</li>
+                                    <li>• <strong>Equal Means ($\bar{x}_1 = \bar{x}_2$):</strong> Distribution with greater SD $\sigma$ has greater variability.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Interactive Tools & Canvas -->
+                <div class="space-y-6">
+
+                    <!-- Interactive Histogram & Distribution Canvas -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-md font-bold mb-3 flex items-center">
+                            <i class="fa-solid fa-chart-bar text-brand-600 mr-2"></i> Distribution Visualizer
+                        </h3>
+                        
+                        <!-- Canvas Container -->
+                        <div id="canvas-container" class="w-full h-52 bg-slate-900 rounded-lg overflow-hidden relative mb-4 flex items-center justify-center">
+                            <canvas id="stats-canvas" class="w-full h-full"></canvas>
+                        </div>
+                        <div class="text-[11px] text-slate-500 dark:text-slate-400 flex justify-between px-1">
+                            <span class="flex items-center"><span class="w-2.5 h-2.5 bg-emerald-500 inline-block rounded-full mr-1"></span> Mean ($\bar{x}$)</span>
+                            <span class="flex items-center"><span class="w-2.5 h-2.5 bg-amber-400 inline-block rounded-full mr-1"></span> SD Bounds ($\pm 1\sigma$)</span>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Tool: Dynamic Statistics Calculator -->
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-md font-bold mb-3 flex items-center">
+                            <i class="fa-solid fa-sliders text-emerald-600 mr-2"></i> Live Statistics Calculator
+                        </h3>
+
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <label class="block font-semibold text-slate-600 dark:text-slate-300 mb-1">Input Dataset (Comma-separated numbers)</label>
+                                <input type="text" id="raw-dataset-input" value="6, 7, 10, 12, 13, 4, 8, 12" oninput="calculateLiveStats()" class="w-full p-2 border rounded bg-slate-50 dark:bg-slate-700 dark:border-slate-600 focus:ring-2 focus:ring-brand-500 outline-none text-sm font-mono">
+                            </div>
+
+                            <div id="stats-output-card" class="space-y-2 pt-2">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="p-2.5 bg-slate-100 dark:bg-slate-700/60 rounded-md">
+                                        <span class="text-slate-500 dark:text-slate-400 block text-[11px]">Count ($n$)</span>
+                                        <span id="res-n" class="font-bold text-sm text-slate-800 dark:text-slate-100">8</span>
+                                    </div>
+                                    <div class="p-2.5 bg-slate-100 dark:bg-slate-700/60 rounded-md">
+                                        <span class="text-slate-500 dark:text-slate-400 block text-[11px]">Mean ($\bar{x}$)</span>
+                                        <span id="res-mean" class="font-bold text-sm text-brand-600 dark:text-brand-400">9.00</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="p-2.5 bg-slate-100 dark:bg-slate-700/60 rounded-md">
+                                        <span class="text-slate-500 dark:text-slate-400 block text-[11px]">M.A.D. ($\bar{x}$)</span>
+                                        <span id="res-mad" class="font-bold text-sm text-indigo-600 dark:text-indigo-400">2.75</span>
+                                    </div>
+                                    <div class="p-2.5 bg-slate-100 dark:bg-slate-700/60 rounded-md">
+                                        <span class="text-slate-500 dark:text-slate-400 block text-[11px]">Variance ($\sigma^2$)</span>
+                                        <span id="res-var" class="font-bold text-sm text-blue-600 dark:text-blue-400">9.25</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="p-2.5 bg-slate-100 dark:bg-slate-700/60 rounded-md">
+                                        <span class="text-slate-500 dark:text-slate-400 block text-[11px]">Std Dev ($\sigma$)</span>
+                                        <span id="res-sd" class="font-bold text-sm text-amber-600 dark:text-amber-400">3.04</span>
+                                    </div>
+                                    <div class="p-2.5 bg-slate-100 dark:bg-slate-700/60 rounded-md">
+                                        <span class="text-slate-500 dark:text-slate-400 block text-[11px]">C.V. (%)</span>
+                                        <span id="res-cv" class="font-bold text-sm text-purple-600 dark:text-purple-400">33.79%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: NCERT SOLUTIONS PRACTICE MODULE -->
+        <section id="sec-ncert" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <div>
+                        <h2 class="text-2xl font-bold">NCERT Exercise Solutions</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Class 11 Mathematics Chapter: Statistics</p>
+                    </div>
+                    <!-- Exercise Filter Tabs -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterNCERT('all')" class="ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-brand-600 text-white">All</button>
+                        <button onclick="filterNCERT('ex1')" class="ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Ex 13.1 / 15.1 (MAD)</button>
+                        <button onclick="filterNCERT('ex2')" class="ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Ex 13.2 / 15.2 (Var & SD)</button>
+                        <button onclick="filterNCERT('ex3')" class="ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Ex 13.3 / 15.3 (C.V.)</button>
+                        <button onclick="filterNCERT('misc')" class="ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">Misc. Ex.</button>
+                    </div>
+                </div>
+
+                <!-- NCERT Problem Cards List -->
+                <div id="ncert-problems-container" class="space-y-4 mt-6">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: DYNAMIC ASSESSMENT & QUIZ GENERATOR -->
+        <section id="sec-quiz" class="hidden space-y-6">
+            <!-- Quiz Configuration Bar -->
+            <div id="quiz-setup-card" class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fa-solid fa-sliders text-brand-600 mr-2"></i> Customize Assessment Session
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Assessment Mode</label>
+                        <select id="quiz-mode" class="w-full p-2.5 text-sm border rounded-lg bg-slate-50 dark:bg-slate-700 dark:border-slate-600">
+                            <option value="practice">Practice Mode (Instant Feedback & Hints)</option>
+                            <option value="test">Timed Test Mode (Exam Simulation)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Number of Questions</label>
+                        <select id="quiz-count" class="w-full p-2.5 text-sm border rounded-lg bg-slate-50 dark:bg-slate-700 dark:border-slate-600">
+                            <option value="5">5 Questions</option>
+                            <option value="10" selected>10 Questions</option>
+                            <option value="15">15 Questions</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Topic Focus</label>
+                        <select id="quiz-topic" class="w-full p-2.5 text-sm border rounded-lg bg-slate-50 dark:bg-slate-700 dark:border-slate-600">
+                            <option value="all">All Topics (Mixed Standard)</option>
+                            <option value="mad">Mean Absolute Deviation</option>
+                            <option value="variance">Variance & Standard Deviation</option>
+                            <option value="shortcut">Step Deviation / Short-cut Methods</option>
+                            <option value="cv">Coefficient of Variation (C.V.)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="startQuiz()" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-md transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-play"></i> <span>Start Test / Practice</span>
+                </button>
+            </div>
+
+            <!-- Active Quiz Interface (Hidden initially) -->
+            <div id="quiz-active-container" class="hidden space-y-6">
+                <!-- Header / Timer Bar -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between">
+                    <div>
+                        <span id="quiz-progress-text" class="text-sm font-semibold text-slate-500">Question 1 of 10</span>
+                        <div class="w-32 sm:w-48 bg-slate-200 dark:bg-slate-700 h-2 rounded-full mt-1 overflow-hidden">
+                            <div id="quiz-progress-bar" class="bg-brand-600 h-full transition-all duration-300" style="width: 10%;"></div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-timer-box" class="flex items-center space-x-2 px-3 py-1.5 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 rounded-lg text-sm font-bold border border-amber-200 dark:border-amber-800">
+                        <i class="fa-solid fa-stopwatch"></i>
+                        <span id="quiz-timer">00:00</span>
+                    </div>
+
+                    <button onclick="confirmSubmitQuiz()" class="text-xs px-3 py-1.5 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 font-semibold rounded-lg hover:bg-rose-200 transition">
+                        Finish Session
+                    </button>
+                </div>
+
+                <!-- Active Question Box -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <span id="question-category" class="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">
+                            Mean Absolute Deviation
+                        </span>
+                    </div>
+
+                    <!-- Question Text -->
+                    <div id="question-text" class="text-lg font-medium mb-6 text-slate-800 dark:text-slate-100 leading-relaxed">
+                        <!-- Dynamic Math Expression -->
+                    </div>
+
+                    <!-- Options Grid -->
+                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                        <!-- Dynamic Option Buttons -->
+                    </div>
+
+                    <!-- Hint & Explanation Panel (Practice Mode) -->
+                    <div id="hint-explanation-box" class="hidden p-4 rounded-xl text-sm border space-y-2">
+                        <!-- Solution detail -->
+                    </div>
+
+                    <!-- Action Controls -->
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <button id="btn-hint" onclick="toggleQuizHint()" class="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline flex items-center space-x-1">
+                            <i class="fa-solid fa-lightbulb"></i> <span>Show Hint</span>
+                        </button>
+
+                        <button id="btn-next-q" onclick="nextQuestion()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow transition">
+                            Next Question <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Result Breakdown View (Hidden initially) -->
+            <div id="quiz-results-card" class="hidden bg-white dark:bg-slate-800 rounded-xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm text-center space-y-6">
+                <div class="inline-flex p-4 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full text-3xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold">Assessment Completed!</h2>
+                    <p class="text-slate-500 text-sm">Here is a summary of your performance</p>
+                </div>
+
+                <!-- Stats Badges -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                        <span class="block text-xs text-slate-400 font-semibold">SCORE</span>
+                        <span id="res-score" class="text-2xl font-bold text-brand-600">8/10</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                        <span class="block text-xs text-slate-400 font-semibold">ACCURACY</span>
+                        <span id="res-accuracy" class="text-2xl font-bold text-emerald-600">80%</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                        <span class="block text-xs text-slate-400 font-semibold">TIME TAKEN</span>
+                        <span id="res-time" class="text-2xl font-bold text-indigo-600">03:45</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                        <span class="block text-xs text-slate-400 font-semibold">RATING</span>
+                        <span id="res-rating" class="text-2xl font-bold text-amber-500">Good</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Question Review -->
+                <div class="text-left max-w-3xl mx-auto space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-lg mb-2">Question Breakdown & Solutions</h3>
+                    <div id="review-questions-list" class="space-y-3">
+                        <!-- Dynamic review elements -->
+                    </div>
+                </div>
+
+                <div class="pt-4 flex justify-center space-x-4">
+                    <button onclick="resetQuizToSetup()" class="px-6 py-2.5 bg-brand-600 text-white font-semibold rounded-lg shadow hover:bg-brand-700 transition">
+                        Take Another Quiz
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PERFORMANCE & ANALYTICS -->
+        <section id="sec-analytics" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fa-solid fa-chart-pie text-brand-600 mr-2"></i> Your Mastery Dashboard
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-5 bg-slate-50 dark:bg-slate-700/40 rounded-xl border border-slate-100 dark:border-slate-700">
+                        <p class="text-xs font-semibold text-slate-400 uppercase">Tests Completed</p>
+                        <p id="total-tests-count" class="text-3xl font-bold text-slate-800 dark:text-slate-100 mt-1">0</p>
+                    </div>
+                    <div class="p-5 bg-slate-50 dark:bg-slate-700/40 rounded-xl border border-slate-100 dark:border-slate-700">
+                        <p class="text-xs font-semibold text-slate-400 uppercase">Average Accuracy</p>
+                        <p id="avg-accuracy-val" class="text-3xl font-bold text-emerald-600 mt-1">0%</p>
+                    </div>
+                    <div class="p-5 bg-slate-50 dark:bg-slate-700/40 rounded-xl border border-slate-100 dark:border-slate-700">
+                        <p class="text-xs font-semibold text-slate-400 uppercase">Questions Answered</p>
+                        <p id="total-questions-answered" class="text-3xl font-bold text-indigo-600 mt-1">0</p>
+                    </div>
+                </div>
+
+                <!-- Topic Strengths Bar Chart -->
+                <div class="space-y-4">
+                    <h3 class="font-bold text-md text-slate-700 dark:text-slate-200">Topic-wise Mastery Breakdown</h3>
+                    
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Mean Absolute Deviation (M.A.D.)</span>
+                                <span id="mastery-mad-pct" class="text-xs font-semibold text-slate-500">100%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div id="mastery-mad-bar" class="bg-brand-500 h-full rounded-full" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Variance & Standard Deviation</span>
+                                <span id="mastery-variance-pct" class="text-xs font-semibold text-slate-500">100%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div id="mastery-variance-bar" class="bg-emerald-500 h-full rounded-full" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Short-cut & Step-Deviation Methods</span>
+                                <span id="mastery-shortcut-pct" class="text-xs font-semibold text-slate-500">100%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div id="mastery-shortcut-bar" class="bg-purple-500 h-full rounded-full" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Coefficient of Variation (C.V.)</span>
+                                <span id="mastery-cv-pct" class="text-xs font-semibold text-slate-500">100%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div id="mastery-cv-bar" class="bg-amber-500 h-full rounded-full" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            Class 11 Mathematics • Statistics Revision & Assessment Hub • Aligned with NCERT Curriculum
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ----------------------------------------------------
+           1. APP STATE & NAVIGATION
+        ---------------------------------------------------- */
+        let currentTab = 'revision';
+        let analyticsData = JSON.parse(localStorage.getItem('cbse_stats_analytics')) || {
+            testsCompleted: 0,
+            totalAnswered: 0,
+            correctCount: 0,
+            topics: { mad: { correct: 0, total: 0 }, variance: { correct: 0, total: 0 }, shortcut: { correct: 0, total: 0 }, cv: { correct: 0, total: 0 } }
+        };
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            ['revision', 'ncert', 'quiz', 'analytics'].forEach(t => {
+                const sec = document.getElementById(`sec-${t}`);
+                if (sec) sec.classList.toggle('hidden', t !== tabId);
+
+                // Update tab styles
+                const btn = document.getElementById(`tab-${t}`);
+                if (btn) {
+                    if (t === tabId) {
+                        btn.className = "nav-btn px-4 py-2 text-sm font-medium rounded-lg text-brand-600 dark:text-brand-400 bg-white dark:bg-slate-800 shadow-sm";
+                    } else {
+                        btn.className = "nav-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-brand-600";
+                    }
+                }
+            });
+
+            if (tabId === 'analytics') updateAnalyticsUI();
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            drawDistributionCanvas();
+        }
+
+        /* ----------------------------------------------------
+           2. LIVE STATISTICS CALCULATOR & CANVAS DRAWING
+        ---------------------------------------------------- */
+        let currentDataset = [6, 7, 10, 12, 13, 4, 8, 12];
+
+        function calculateLiveStats() {
+            const inputVal = document.getElementById('raw-dataset-input').value;
+            const parsed = inputVal.split(',').map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
+
+            if (parsed.length === 0) return;
+            currentDataset = parsed;
+
+            const n = parsed.length;
+            const mean = parsed.reduce((a, b) => a + b, 0) / n;
+            const mad = parsed.reduce((a, b) => a + Math.abs(b - mean), 0) / n;
+            const variance = parsed.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n;
+            const sd = Math.sqrt(variance);
+            const cv = mean !== 0 ? (sd / mean) * 100 : 0;
+
+            document.getElementById('res-n').innerText = n;
+            document.getElementById('res-mean').innerText = mean.toFixed(2);
+            document.getElementById('res-mad').innerText = mad.toFixed(2);
+            document.getElementById('res-var').innerText = variance.toFixed(2);
+            document.getElementById('res-sd').innerText = sd.toFixed(2);
+            document.getElementById('res-cv').innerText = cv.toFixed(2) + '%';
+
+            drawDistributionCanvas();
+        }
+
+        function drawDistributionCanvas() {
+            const canvas = document.getElementById('stats-canvas');
+            if (!canvas) return;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (currentDataset.length === 0) return;
+
+            // Sort dataset for frequency plotting
+            const sorted = [...currentDataset].sort((a, b) => a - b);
+            const minVal = Math.min(...sorted);
+            const maxVal = Math.max(...sorted);
+            const n = sorted.length;
+            const mean = sorted.reduce((a, b) => a + b, 0) / n;
+            const variance = sorted.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n;
+            const sd = Math.sqrt(variance);
+
+            const padding = 30;
+            const width = canvas.width - padding * 2;
+            const height = canvas.height - padding * 2;
+
+            // Compute frequency buckets or values
+            const freqMap = {};
+            sorted.forEach(val => freqMap[val] = (freqMap[val] || 0) + 1);
+            const uniqueVals = Object.keys(freqMap).map(Number).sort((a, b) => a - b);
+            const maxFreq = Math.max(...Object.values(freqMap));
+
+            const valRange = (maxVal - minVal) || 1;
+
+            // Draw Bars
+            const barWidth = Math.max(12, (width / uniqueVals.length) - 8);
+            uniqueVals.forEach((val, i) => {
+                const freq = freqMap[val];
+                const x = padding + ((val - minVal) / valRange) * (width - 40) + 10;
+                const barHeight = (freq / maxFreq) * (height - 20);
+                const y = canvas.height - padding - barHeight;
+
+                ctx.fillStyle = '#0284c7';
+                ctx.beginPath();
+                ctx.roundRect(x - barWidth / 2, y, barWidth, barHeight, [4, 4, 0, 0]);
+                ctx.fill();
+
+                // Text
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '10px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText(val, x, canvas.height - 10);
+            });
+
+            // Draw Mean Line ($\bar{x}$)
+            const meanX = padding + ((mean - minVal) / valRange) * (width - 40) + 10;
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(meanX, 10);
+            ctx.lineTo(meanX, canvas.height - padding);
+            ctx.stroke();
+
+            // Draw SD Line Bounds ($\pm 1 \sigma$)
+            const sdLeftX = padding + ((Math.max(minVal, mean - sd) - minVal) / valRange) * (width - 40) + 10;
+            const sdRightX = padding + ((Math.min(maxVal, mean + sd) - minVal) / valRange) * (width - 40) + 10;
+
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([2, 2]);
+
+            ctx.beginPath();
+            ctx.moveTo(sdLeftX, 20);
+            ctx.lineTo(sdLeftX, canvas.height - padding);
+            ctx.moveTo(sdRightX, 20);
+            ctx.lineTo(sdRightX, canvas.height - padding);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+        }
+
+        /* ----------------------------------------------------
+           3. NCERT SOLUTIONS DATA & FUNCTIONS
+        ---------------------------------------------------- */
+        const ncertDatabase = [
+            {
+                id: 1,
+                ex: "ex1",
+                exName: "Exercise 13.1 / 15.1",
+                q: "Find the mean deviation about the mean for the data: $4, 7, 8, 9, 10, 12, 13, 17$.",
+                sol: "1. Calculate Mean ($\bar{x}$):<br>$$\\bar{x} = \\frac{4+7+8+9+10+12+13+17}{8} = \\frac{80}{8} = 10$$<br>2. Compute absolute deviations $|x_i - \\bar{x}|$:<br>$$|4-10|=6, \\ |7-10|=3, \\ |8-10|=2, \\ |9-10|=1, \\ |10-10|=0, \\ |12-10|=2, \\ |13-10|=3, \\ |17-10|=7$$<br>3. Calculate M.A.D.:<br>$$M.A.D.(\\bar{x}) = \\frac{6+3+2+1+0+2+3+7}{8} = \\frac{24}{8} = \\mathbf{3}$$"
+            },
+            {
+                id: 2,
+                ex: "ex1",
+                exName: "Exercise 13.1 / 15.1",
+                q: "Find the mean deviation about the median for the data: $13, 17, 16, 14, 11, 13, 10, 16, 11, 18, 12, 17$.",
+                sol: "1. Arrange data in ascending order ($n=12$):<br>$$10, 11, 11, 12, 13, 13, 14, 16, 16, 17, 17, 18$$<br>2. Calculate Median ($M$):<br>$$M = \\frac{6^{th} \\text{ term} + 7^{th} \\text{ term}}{2} = \\frac{13 + 14}{2} = 13.5$$<br>3. Compute absolute deviations $|x_i - 13.5|$ sum:<br>$$\\sum |x_i - M| = 3.5 + 2.5 + 2.5 + 1.5 + 0.5 + 0.5 + 0.5 + 2.5 + 2.5 + 3.5 + 3.5 + 4.5 = 28$$<br>4. $$M.A.D.(M) = \\frac{28}{12} = \\mathbf{2.33}$$"
+            },
+            {
+                id: 3,
+                ex: "ex2",
+                exName: "Exercise 13.2 / 15.2",
+                q: "Find the mean and variance for the first $n$ natural numbers.",
+                sol: "1. Mean ($\\bar{x}$):<br>$$\\bar{x} = \\frac{\\sum x_i}{n} = \\frac{n(n+1)}{2n} = \\frac{n+1}{2}$$<br>2. Variance ($\\sigma^2$):<br>$$\\sigma^2 = \\frac{\\sum x_i^2}{n} - (\\bar{x})^2 = \\frac{n(n+1)(2n+1)}{6n} - \\left(\\frac{n+1}{2}\\right)^2$$<br>$$\\sigma^2 = \\frac{(n+1)(2n+1)}{6} - \\frac{(n+1)^2}{4} = \\frac{n+1}{12} \\left[ 2(2n+1) - 3(n+1) \\right] = \\mathbf{\\frac{n^2 - 1}{12}}$$"
+            },
+            {
+                id: 4,
+                ex: "ex2",
+                exName: "Exercise 13.2 / 15.2",
+                q: "Find the mean and standard deviation for the following discrete frequency distribution:<br>$x_i$: 6, 10, 14, 18, 24, 28, 30 | $f_i$: 2, 4, 7, 12, 8, 4, 3",
+                sol: "1. Calculate $N = \\sum f_i = 40$.<br>2. $\\sum f_i x_i = (6\\times2)+(10\\times4)+(14\\times7)+(18\\times12)+(24\\times8)+(28\\times4)+(30\\times3) = 760$.<br>3. Mean $\\bar{x} = \\frac{760}{40} = \\mathbf{19}$.<br>4. Calculate $\\sum f_i (x_i - \\bar{x})^2 = 2(169) + 4(81) + 7(25) + 12(1) + 8(25) + 4(81) + 3(121) = 1736$.<br>5. Variance $\\sigma^2 = \\frac{1736}{40} = 43.4 \\implies \\mathbf{\\sigma = \\sqrt{43.4} \\approx 6.59}$."
+            },
+            {
+                id: 5,
+                ex: "ex3",
+                exName: "Exercise 13.3 / 15.3",
+                q: "Two plants A and B of a factory show following results about total monthly wages paid: Number of workers (A: 5000, B: 6000), Mean wages (A: ₹2500, B: ₹2500), Variance of distribution (A: 81, B: 100). Which plant shows greater variability?",
+                sol: "1. Since both plants have the **same mean monthly wage** ($\\bar{x} = 2500$), we directly compare their Standard Deviations:<br>• Plant A SD ($\\sigma_A$) = $\\sqrt{81} = 9$<br>• Plant B SD ($\\sigma_B$) = $\\sqrt{100} = 10$<br><br>2. Calculate C.V.:<br>$$C.V.(A) = \\frac{9}{2500} \\times 100 = 0.36\\%, \\quad C.V.(B) = \\frac{10}{2500} \\times 100 = 0.40\\%$$<br>Since $C.V.(B) > C.V.(A)$, **Plant B** shows greater variability in individual wages."
+            },
+            {
+                id: 6,
+                ex: "misc",
+                exName: "Miscellaneous Exercise",
+                q: "The mean and standard deviation of 20 observations are found to be 10 and 2 respectively. On rechecking, it was found that an observation 8 was incorrect. Calculate correct mean and SD if wrong item is omitted.",
+                sol: "1. Given $n=20, \\bar{x}=10, \\sigma=2$.<br>$$\\sum x = 20 \\times 10 = 200$$<br>Since wrong item 8 is omitted, new $n' = 19$.<br>$$\\text{Correct } \\sum x' = 200 - 8 = 192 \\implies \\mathbf{\\text{Correct Mean } \\bar{x}' = \\frac{192}{19} \\approx 10.105}$$<br><br>2. Original $\\sigma^2 = 4 = \\frac{\\sum x^2}{20} - 100 \\implies \\sum x^2 = 2080$.<br>$$\\text{Correct } \\sum (x')^2 = 2080 - 8^2 = 2016$$<br>$$\\text{Correct } \\sigma' = \\sqrt{\\frac{2016}{19} - (10.105)^2} = \\sqrt{106.105 - 102.111} = \\sqrt{3.994} = \\mathbf{1.998}$$"
+            }
+        ];
+
+        function renderNCERTProblems(filter = 'all') {
+            const container = document.getElementById('ncert-problems-container');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? ncertDatabase : ncertDatabase.filter(item => item.ex === filter);
+
+            filtered.forEach((p, idx) => {
+                const card = document.createElement('div');
+                card.className = "p-5 bg-slate-50 dark:bg-slate-700/30 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 rounded-md">${p.exName}</span>
+                        <span class="text-xs text-slate-400">Problem ${idx + 1}</span>
+                    </div>
+                    <p class="font-medium text-sm sm:text-base">${p.q}</p>
+                    <div>
+                        <button onclick="toggleNCERTSolution(${p.id})" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center space-x-1">
+                            <i class="fa-solid fa-eye"></i> <span id="btn-text-${p.id}">Show Worked Solution</span>
+                        </button>
+                        <div id="sol-box-${p.id}" class="hidden mt-3 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                            ${p.sol}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function toggleNCERTSolution(id) {
+            const box = document.getElementById(`sol-box-${id}`);
+            const btnText = document.getElementById(`btn-text-${id}`);
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                btnText.innerText = 'Hide Solution';
+            } else {
+                box.classList.add('hidden');
+                btnText.innerText = 'Show Worked Solution';
+            }
+        }
+
+        function filterNCERT(filter) {
+            document.querySelectorAll('.ncert-filter-btn').forEach(btn => {
+                btn.className = "ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300";
+            });
+            event.target.className = "ncert-filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-brand-600 text-white";
+            renderNCERTProblems(filter);
+        }
+
+        /* ----------------------------------------------------
+           4. DYNAMIC QUESTION GENERATOR & ASSESSMENT ENGINE
+        ---------------------------------------------------- */
+        let activeQuizState = {
+            mode: 'practice',
+            questions: [],
+            currentIndex: 0,
+            answers: [],
+            timerInterval: null,
+            timeElapsed: 0
+        };
+
+        function generateRandomQuestions(count, topic) {
+            const questions = [];
+            
+            for (let i = 0; i < count; i++) {
+                let questionType = topic;
+                if (topic === 'all') {
+                    const types = ['mad', 'variance', 'shortcut', 'cv'];
+                    questionType = types[i % types.length];
+                }
+
+                if (questionType === 'mad') {
+                    // M.A.D. about Mean
+                    const base = Math.floor(Math.random() * 5) + 3;
+                    const arr = [base, base+2, base+4, base+6, base+8];
+                    const mean = base + 4;
+                    const mad = (4 + 2 + 0 + 2 + 4) / 5; // 2.4
+
+                    const correctStr = mad.toFixed(1);
+                    const wrong1 = (mad + 0.8).toFixed(1);
+                    const wrong2 = (mad - 0.4).toFixed(1);
+                    const wrong3 = (mad * 1.5).toFixed(1);
+
+                    questions.push({
+                        category: 'Mean Absolute Deviation',
+                        text: `Find the Mean Absolute Deviation about Mean for the dataset: $${arr.join(', ')}$.`,
+                        options: [correctStr, wrong1, wrong2, wrong3].sort(() => 0.5 - Math.random()),
+                        correct: correctStr,
+                        hint: `First compute mean $\\bar{x} = ${mean}$, then find $\\frac{\\sum |x_i - \\bar{x}|}{5}$.`,
+                        explanation: `Mean $\\bar{x} = ${mean}$. Absolute deviations are $4, 2, 0, 2, 4$. $M.A.D. = \\frac{12}{5} = \\mathbf{${correctStr}}$.`
+                    });
+
+                } else if (questionType === 'variance') {
+                    // Variance of natural numbers or discrete set
+                    const n = [3, 5, 7, 9][Math.floor(Math.random() * 4)];
+                    const varianceVal = ((n * n - 1) / 12).toFixed(2);
+                    const wrong1 = ((n * n) / 12).toFixed(2);
+                    const wrong2 = ((n * n + 1) / 12).toFixed(2);
+                    const wrong3 = ((n - 1) / 2).toFixed(2);
+
+                    questions.push({
+                        category: 'Variance & Standard Deviation',
+                        text: `Calculate the Variance ($\\sigma^2$) for the first $${n}$ natural numbers.`,
+                        options: [varianceVal, wrong1, wrong2, wrong3].sort(() => 0.5 - Math.random()),
+                        correct: varianceVal,
+                        hint: `Use formula $\\sigma^2 = \\frac{n^2 - 1}{12}$.`,
+                        explanation: `For $n=${n}$, $\\sigma^2 = \\frac{${n}^2 - 1}{12} = \\frac{${n*n - 1}}{12} = \\mathbf{${varianceVal}}$.`
+                    });
+
+                } else if (questionType === 'shortcut') {
+                    // Step deviation / Short-cut concept
+                    const change = Math.floor(Math.random() * 5) + 2;
+                    const origSD = Math.floor(Math.random() * 4) + 3;
+                    
+                    questions.push({
+                        category: 'Short-cut & Step Deviation',
+                        text: `If each observation in a dataset is multiplied by $${change}$, how does the original Standard Deviation $\\sigma = ${origSD}$ change?`,
+                        options: [`New $\\sigma = ${origSD * change}$`, `New $\\sigma = ${origSD}$`, `New $\\sigma = ${origSD + change}$`, `New $\\sigma = ${origSD * change * change}`].sort(() => 0.5 - Math.random()),
+                        correct: `New $\\sigma = ${origSD * change}$`,
+                        hint: `Multiplying all observations by a constant $k$ scales the Standard Deviation by $|k|$.`,
+                        explanation: `Standard Deviation is scale-dependent. If $x_i \\to k x_i$, then $\\sigma_{new} = k \\cdot \\sigma_{old} = ${change} \\times ${origSD} = \\mathbf{${origSD * change}}$.`
+                    });
+
+                } else {
+                    // C.V. calculation
+                    const mean = (Math.floor(Math.random() * 5) + 4) * 10;
+                    const sd = Math.floor(Math.random() * 4) + 4;
+                    const cv = ((sd / mean) * 100).toFixed(2);
+
+                    const correctStr = `${cv}%`;
+                    const wrong1 = `${(parseFloat(cv) + 5).toFixed(2)}%`;
+                    const wrong2 = `${(parseFloat(cv) * 0.8).toFixed(2)}%`;
+                    const wrong3 = `${(sd * 10).toFixed(2)}%`;
+
+                    questions.push({
+                        category: 'Coefficient of Variation',
+                        text: `Find the Coefficient of Variation (C.V.) for a distribution with Mean $\\bar{x} = ${mean}$ and Standard Deviation $\\sigma = ${sd}$.`,
+                        options: [correctStr, wrong1, wrong2, wrong3].sort(() => 0.5 - Math.random()),
+                        correct: correctStr,
+                        hint: `Use $C.V. = \\frac{\\sigma}{\\bar{x}} \\times 100$.`,
+                        explanation: `$$C.V. = \\frac{${sd}}{${mean}} \\times 100 = \\mathbf{${correctStr}}$$`
+                    });
+                }
+            }
+            return questions;
+        }
+
+        function startQuiz() {
+            const mode = document.getElementById('quiz-mode').value;
+            const count = parseInt(document.getElementById('quiz-count').value);
+            const topic = document.getElementById('quiz-topic').value;
+
+            activeQuizState = {
+                mode: mode,
+                questions: generateRandomQuestions(count, topic),
+                currentIndex: 0,
+                answers: new Array(count).fill(null),
+                timeElapsed: 0,
+                timerInterval: null
+            };
+
+            document.getElementById('quiz-setup-card').classList.add('hidden');
+            document.getElementById('quiz-results-card').classList.add('hidden');
+            document.getElementById('quiz-active-container').classList.remove('hidden');
+
+            // Timer
+            if (activeQuizState.timerInterval) clearInterval(activeQuizState.timerInterval);
+            activeQuizState.timerInterval = setInterval(() => {
+                activeQuizState.timeElapsed++;
+                const mins = String(Math.floor(activeQuizState.timeElapsed / 60)).padStart(2, '0');
+                const secs = String(activeQuizState.timeElapsed % 60).padStart(2, '0');
+                document.getElementById('quiz-timer').innerText = `${mins}:${secs}`;
+            }, 1000);
+
+            renderCurrentQuestion();
+        }
+
+        function renderCurrentQuestion() {
+            const q = activeQuizState.questions[activeQuizState.currentIndex];
+            const total = activeQuizState.questions.length;
+
+            document.getElementById('quiz-progress-text').innerText = `Question ${activeQuizState.currentIndex + 1} of ${total}`;
+            document.getElementById('quiz-progress-bar').style.width = `${((activeQuizState.currentIndex + 1) / total) * 100}%`;
+
+            document.getElementById('question-category').innerText = q.category;
+            document.getElementById('question-text').innerHTML = q.text;
+
+            // Options
+            const optContainer = document.getElementById('options-container');
+            optContainer.innerHTML = '';
+
+            const selectedAnswer = activeQuizState.answers[activeQuizState.currentIndex];
+
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = `p-4 text-left border rounded-xl font-medium text-sm transition flex items-center justify-between ${
+                    selectedAnswer === opt 
+                        ? 'bg-brand-50 border-brand-500 text-brand-700 dark:bg-brand-950/40 dark:text-brand-300' 
+                        : 'bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 hover:border-brand-300'
+                }`;
+                btn.innerHTML = `<span>${opt}</span> <i class="${selectedAnswer === opt ? 'fa-solid fa-circle-check text-brand-600' : 'fa-regular fa-circle text-slate-400'}"></i>`;
+                btn.onclick = () => selectOption(opt);
+                optContainer.appendChild(btn);
+            });
+
+            // Hint & Explanation panel behavior
+            const hintBox = document.getElementById('hint-explanation-box');
+            hintBox.classList.add('hidden');
+
+            if (activeQuizState.mode === 'practice' && selectedAnswer !== null) {
+                hintBox.classList.remove('hidden');
+                const isCorrect = selectedAnswer === q.correct;
+                hintBox.className = `p-4 rounded-xl text-sm border ${isCorrect ? 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-200' : 'bg-rose-50 text-rose-900 border-rose-200 dark:bg-rose-950/30 dark:text-rose-200'}`;
+                hintBox.innerHTML = `
+                    <div class="font-bold mb-1">${isCorrect ? '✓ Correct Answer!' : '✗ Incorrect Answer'}</div>
+                    <div>${q.explanation}</div>
+                `;
+            }
+
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function selectOption(option) {
+            activeQuizState.answers[activeQuizState.currentIndex] = option;
+            renderCurrentQuestion();
+        }
+
+        function toggleQuizHint() {
+            const q = activeQuizState.questions[activeQuizState.currentIndex];
+            const hintBox = document.getElementById('hint-explanation-box');
+            hintBox.className = "p-4 rounded-xl text-sm border bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950/30 dark:text-amber-200";
+            hintBox.innerHTML = `<div class="font-bold mb-1"><i class="fa-solid fa-lightbulb text-amber-500"></i> Hint</div><div>${q.hint}</div>`;
+            hintBox.classList.remove('hidden');
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (activeQuizState.currentIndex < activeQuizState.questions.length - 1) {
+                activeQuizState.currentIndex++;
+                renderCurrentQuestion();
+            } else {
+                confirmSubmitQuiz();
+            }
+        }
+
+        function confirmSubmitQuiz() {
+            clearInterval(activeQuizState.timerInterval);
+            
+            // Calculate Results
+            let correctCount = 0;
+            activeQuizState.questions.forEach((q, idx) => {
+                if (activeQuizState.answers[idx] === q.correct) correctCount++;
+            });
+
+            const total = activeQuizState.questions.length;
+            const accuracy = Math.round((correctCount / total) * 100);
+
+            // Display Results
+            document.getElementById('quiz-active-container').classList.add('hidden');
+            document.getElementById('quiz-results-card').classList.remove('hidden');
+
+            document.getElementById('res-score').innerText = `${correctCount}/${total}`;
+            document.getElementById('res-accuracy').innerText = `${accuracy}%`;
+            
+            const mins = String(Math.floor(activeQuizState.timeElapsed / 60)).padStart(2, '0');
+            const secs = String(activeQuizState.timeElapsed % 60).padStart(2, '0');
+            document.getElementById('res-time').innerText = `${mins}:${secs}`;
+
+            document.getElementById('res-rating').innerText = accuracy >= 80 ? 'Excellent' : accuracy >= 50 ? 'Good' : 'Needs Practice';
+
+            // Detailed Review List
+            const reviewContainer = document.getElementById('review-questions-list');
+            reviewContainer.innerHTML = '';
+
+            activeQuizState.questions.forEach((q, idx) => {
+                const userAns = activeQuizState.answers[idx];
+                const isCorrect = userAns === q.correct;
+
+                const item = document.createElement('div');
+                item.className = `p-4 rounded-xl border text-sm text-left ${isCorrect ? 'bg-emerald-50/50 border-emerald-200 dark:bg-emerald-950/20' : 'bg-rose-50/50 border-rose-200 dark:bg-rose-950/20'}`;
+                item.innerHTML = `
+                    <p class="font-semibold text-slate-800 dark:text-slate-100 mb-2">${idx + 1}. ${q.text}</p>
+                    <div class="text-xs space-y-1">
+                        <p><strong>Your Answer:</strong> <span class="${isCorrect ? 'text-emerald-600 font-bold' : 'text-rose-600 font-bold'}">${userAns || 'Not Answered'}</span></p>
+                        ${!isCorrect ? `<p><strong>Correct Answer:</strong> <span class="text-emerald-600 font-bold">${q.correct}</span></p>` : ''}
+                        <div class="mt-2 text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-200 dark:border-slate-700">${q.explanation}</div>
+                    </div>
+                `;
+                reviewContainer.appendChild(item);
+            });
+
+            // Save Analytics
+            saveQuizAnalytics(correctCount, total, activeQuizState.questions, activeQuizState.answers);
+
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function resetQuizToSetup() {
+            document.getElementById('quiz-results-card').classList.add('hidden');
+            document.getElementById('quiz-setup-card').classList.remove('hidden');
+        }
+
+        /* ----------------------------------------------------
+           5. ANALYTICS MANAGEMENT
+        ---------------------------------------------------- */
+        function saveQuizAnalytics(correct, total, questions, answers) {
+            analyticsData.testsCompleted++;
+            analyticsData.totalAnswered += total;
+            analyticsData.correctCount += correct;
+
+            questions.forEach((q, idx) => {
+                const cat = q.category.toLowerCase();
+                let topicKey = 'mad';
+                if (cat.includes('variance') || cat.includes('standard')) topicKey = 'variance';
+                else if (cat.includes('short') || cat.includes('step')) topicKey = 'shortcut';
+                else if (cat.includes('coefficient') || cat.includes('c.v.')) topicKey = 'cv';
+
+                if (analyticsData.topics[topicKey]) {
+                    analyticsData.topics[topicKey].total++;
+                    if (answers[idx] === q.correct) analyticsData.topics[topicKey].correct++;
+                }
+            });
+
+            localStorage.setItem('cbse_stats_analytics', JSON.stringify(analyticsData));
+        }
+
+        function updateAnalyticsUI() {
+            document.getElementById('total-tests-count').innerText = analyticsData.testsCompleted;
+            document.getElementById('total-questions-answered').innerText = analyticsData.totalAnswered;
+            
+            const avgAcc = analyticsData.totalAnswered > 0 ? Math.round((analyticsData.correctCount / analyticsData.totalAnswered) * 100) : 0;
+            document.getElementById('avg-accuracy-val').innerText = `${avgAcc}%`;
+
+            // Topic bars
+            Object.keys(analyticsData.topics).forEach(top => {
+                const tData = analyticsData.topics[top];
+                const pct = tData.total > 0 ? Math.round((tData.correct / tData.total) * 100) : 100;
+                
+                const bar = document.getElementById(`mastery-${top}-bar`);
+                const txt = document.getElementById(`mastery-${top}-pct`);
+                if (bar && txt) {
+                    bar.style.width = `${pct}%`;
+                    txt.innerText = `${pct}%`;
+                }
+            });
+        }
+
+        /* ----------------------------------------------------
+           6. INITIALIZATION ON LOAD
+        ---------------------------------------------------- */
+        window.onload = function() {
+            calculateLiveStats();
+            renderNCERTProblems('all');
+        };
+    </script>
+</body>
+</html>
